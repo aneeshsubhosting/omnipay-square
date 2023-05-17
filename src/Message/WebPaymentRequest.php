@@ -65,6 +65,15 @@ class WebPaymentRequest extends AbstractRequest
     {
         return $this->getParameter('sandboxHost');
     }
+    public function getCustomerId()
+    {
+        return $this->getParameter('customer_id');
+    }
+
+    public function setCustomerId($value)
+    {
+        return $this->setParameter('customer_id', $value);
+    }       
 
      
     public function getData()
@@ -75,7 +84,8 @@ class WebPaymentRequest extends AbstractRequest
             'amount_money' => [
                 'amount' => intval($this->getAmount()*100),
                 'currency' => $this->getCurrency()
-            ]
+            ],
+            'customer_id' => $this->getCustomerId(),
         );
         $data = new \SquareConnect\Model\CreatePaymentRequest($data_array);
 
