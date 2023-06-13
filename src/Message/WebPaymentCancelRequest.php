@@ -85,7 +85,7 @@ class WebPaymentCancelRequest extends AbstractRequest
 
     public function sendData($data)
     {
-        dd($data);
+
         SquareConnect\Configuration::getDefaultConfiguration()->setAccessToken($this->getAccessToken());
        
         $apiClient = new ApiClient();
@@ -95,9 +95,7 @@ class WebPaymentCancelRequest extends AbstractRequest
         $api_instance = new SquareConnect\Api\PaymentsApi($apiClient);
 
         try {
-            $result = $api_instance->createPayment($data);
-            $result = $result->getPayment();
-           
+            $result = $api_instance->cancelPayment($data['transaction_id']);
             return $this->createResponse($result);
         } catch (Exception $e) {
             echo 'Exception when calling LocationsApi->listLocations: ', $e->getMessage(), PHP_EOL;
