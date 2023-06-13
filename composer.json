@@ -27,7 +27,7 @@
     },
     "require": {
         "omnipay/common": "~2.0",
-        "aneeshsubhosting/square-connect": "dev-main"
+        "square/connect": "dev-main"
     },
     "require-dev": {
         "omnipay/tests": "~2.0"
@@ -41,7 +41,7 @@
     [
         {
             "type":"vcs",
-            "url" : "https://github.com/aneeshsubhosting/square-connect"
+            "url" : "https://github.com/aneeshsubhosting/connect"
         }            
     ]   
 }
