@@ -43,5 +43,5 @@
             "type":"vcs",
             "url" : "https://github.com/aneeshsubhosting/connect-php-sdk"
         }            
-    ],    
+    ]   
 }
