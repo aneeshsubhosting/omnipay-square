@@ -1,6 +1,7 @@
 <?php
 
 namespace Omnipay\Square\Message;
+use \SquareConnect\ApiClient;
 
 use Omnipay\Common\Message\AbstractRequest;
 use SquareConnect;
@@ -50,7 +51,12 @@ class WebPaymentRequest extends AbstractRequest
     }    
     public function getHost()
     {
-        return $this->getParameter('host');
+         if( $this->getTestMode() || "on" == $this->getTestMode() ){
+             return 'https://connect.squareupsandbox.com';
+         } else {
+              return 'https://connect.squareup.com';
+         }
+       
     }
     public function setHost($value)
     {
@@ -63,7 +69,7 @@ class WebPaymentRequest extends AbstractRequest
     }      
     public function getSandBoxHost()
     {
-        return $this->getParameter('sandboxHost');
+        return 'https://connect.squareupsandbox.com';
     }
     public function getCustomerId()
     {
@@ -95,11 +101,12 @@ class WebPaymentRequest extends AbstractRequest
     public function sendData($data)
     {
         SquareConnect\Configuration::getDefaultConfiguration()->setAccessToken($this->getAccessToken());
-
-        if( $this->getTestMode() ){
-            SquareConnect\Configuration::getDefaultConfiguration()->setHost($this->getSandBoxHost());
-        } 
-        $api_instance = new SquareConnect\Api\PaymentsApi();
+       
+        $apiClient = new ApiClient();
+        $apiClient->getConfig()->setHost($this->getHost());
+        $apiClient->getConfig()->setAccessToken($this->getAccessToken());
+        
+        $api_instance = new SquareConnect\Api\PaymentsApi($apiClient);
 
         try {
             $result = $api_instance->createPayment($data);
