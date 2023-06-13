@@ -63,12 +63,11 @@ class Gateway extends AbstractGateway
     public function getSandBoxHost()
     {
         return $this->getParameter('sandboxHost');
-    }    
+    }
 
-
-    public function payment(array $parameters = array())
+    public function void(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Square\Message\WebCheckoutRequest', $parameters);
+        return $this->createRequest('\Omnipay\Square\Message\WebPaymentRequest', $parameters);
     }
 
     public function purchase(array $parameters = array())
