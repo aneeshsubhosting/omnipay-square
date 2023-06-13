@@ -41,7 +41,7 @@
     [
         {
             "type":"vcs",
-            "url" : "https://github.com/aneeshsubhosting/connect-php-sdk"
+            "url" : "https://github.com/aneeshsubhosting/square-connect"
         }            
     ]   
 }
