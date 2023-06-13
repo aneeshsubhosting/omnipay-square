@@ -26,8 +26,7 @@
         "psr-4": { "Omnipay\\Square\\" : "src/" }
     },
     "require": {
-        "omnipay/common": "~2.0",
-        "square/connect": "dev-main"
+        "omnipay/common": "~2.0"
     },
     "require-dev": {
         "omnipay/tests": "~2.0"
@@ -36,12 +35,5 @@
         "branch-alias": {
             "dev-master": "2.0.x-dev"
         }
-    },
-    "repositories":
-    [
-        {
-            "type":"vcs",
-            "url" : "https://github.com/aneeshsubhosting/connect"
-        }            
-    ]   
+    }
 }
