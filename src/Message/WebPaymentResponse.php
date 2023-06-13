@@ -19,6 +19,12 @@ class WebPaymentResponse extends AbstractResponse
     {
         return $this->getData();
     }    
+    
+    public function getMessage()
+    {
+        $errors = @$this->data->errors;
+        return empty( $errors ) || "" != @$errors[0]->detail ? @$errors[0]->detail : "Unknown Error";
+    }      
 
     public function getTransaction_reference()
     {
