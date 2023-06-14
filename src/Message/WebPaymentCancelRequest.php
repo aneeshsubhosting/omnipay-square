@@ -74,11 +74,14 @@ class WebPaymentCancelRequest extends AbstractRequest
   
     public function getData()
     {
+        dd($this->getParameters());
          $data_array = [
-             'transaction_id' => $this->getParameter('transactionReference'),
+             'transaction_id' => $this->getParameter('transactiond'),
              'method' => 'void'
          ];
          $data = new \SquareConnect\Model\CancelPaymentRequest($data_array);  
+
+         dd($data);
 
         return $data;
     }
@@ -104,6 +107,6 @@ class WebPaymentCancelRequest extends AbstractRequest
 
     public function createResponse($response)
     {
-        return $this->response = new WebPaymentResponse($this, $response);
+        return $this->response = new WebPaymentCancelResponse($this, $response);
     }
 }
