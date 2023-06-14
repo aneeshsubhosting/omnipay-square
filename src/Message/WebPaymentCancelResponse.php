@@ -13,24 +13,23 @@ class WebPaymentCancelResponse extends AbstractResponse
 
     public function isSuccessful()
     {  
-        $errors = @$this->data->errors;
-
-        return empty( $errors ) || "BAD_REQUEST" == @$errors[0]->code ? false : true;
+        if( null == $this->data->getErrors() && "CANCELED" == $this->data->getPayment()->getStatus()  ){
+            return true;
+        } elseif( empty( $errors ) || "BAD_REQUEST" == @$errors[0]->code ){
+            return false;
+        } else {
+            return false;
+        }
     }
 
     public function getMessage()
     {
-        $errors = @$this->data->errors;
+        $errors = $this->data->getErrors();
         return empty( $errors ) || "" != @$errors[0]->detail ? @$errors[0]->detail : "Unknown Error";
     }    
 
-    public function getRedirectData()
+    public function getData()
     {
-        return $this->getData();
-    }    
-
-    public function getTransaction_reference()
-    {
-        return null;
-    }
+        return $this->data->getPayment();
+    }  
 }
