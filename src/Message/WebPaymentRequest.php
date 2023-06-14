@@ -79,27 +79,46 @@ class WebPaymentRequest extends AbstractRequest
     public function setCustomerId($value)
     {
         return $this->setParameter('customer_id', $value);
-    }       
+    } 
+    public function getMethod()
+    {
+        return $this->getParameter('method');
+    }
+
+    public function setMethod($value)
+    {
+        return $this->setParameter('method', $value);
+    }            
 
      
     public function getData()
     {
-        $data_array = array(
-            'idempotency_key' => uniqid(),
-            'source_id' => $this->getSourceId(),
-            'amount_money' => [
-                'amount' => intval($this->getAmount()*100),
-                'currency' => $this->getCurrency()
-            ],
-            'customer_id' => $this->getCustomerId(),
-        );
-        $data = new \SquareConnect\Model\CreatePaymentRequest($data_array);
+
+        if("void" == $this->getMethod()){
+            $data_array = [
+                'transaction_id' => $this->getParameter('transactionReference'),
+                'method' => 'void'
+            ];
+            $data = new \SquareConnect\Model\CancelPaymentRequest($data_array);   
+        } else {
+            $data_array = array(
+                'idempotency_key' => uniqid(),
+                'source_id' => $this->getSourceId(),
+                'amount_money' => [
+                    'amount' => intval($this->getAmount()*100),
+                    'currency' => $this->getCurrency()
+                ],
+                'customer_id' => $this->getCustomerId(),
+            );
+            $data = new \SquareConnect\Model\CreatePaymentRequest($data_array);            
+        }
 
         return $data;
     }
 
     public function sendData($data)
     {
+       
         SquareConnect\Configuration::getDefaultConfiguration()->setAccessToken($this->getAccessToken());
        
         $apiClient = new ApiClient();
