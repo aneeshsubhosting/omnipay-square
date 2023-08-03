@@ -67,7 +67,7 @@ class Gateway extends AbstractGateway
 
     public function void(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Square\Message\WebPaymentRequest', $parameters);
+        return $this->createRequest('\Omnipay\Square\Message\WebPaymentCancelRequest', $parameters);
     }
 
     public function purchase(array $parameters = array())
@@ -79,4 +79,9 @@ class Gateway extends AbstractGateway
     {
         return $this->createRequest('\Omnipay\Square\Message\TransactionRequest', $parameters);
     }
+
+    public function refund(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Square\Message\WebPaymentRefundRequest', $parameters);
+    }    
 }
